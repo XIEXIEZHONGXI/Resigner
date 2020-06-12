@@ -25,7 +25,21 @@
             NSArray * formatString = [securitySyring componentsSeparatedByString:@"\n"];
             for (int i = 0; i < formatString.count; i++) {
                 if ([formatString[i] containsString:@"\"iPhone "]) {
-                    NSString * cerName = [NSString stringWithFormat:@"iPhone %@)",[[formatString[i] componentsSeparatedByString:@"\"iPhone "][1] componentsSeparatedByString:@")\""][0]];
+                    NSString * cerName;
+                    if ([formatString[i] containsString:@"("] && [formatString[i] containsString:@")"]) {
+                        cerName = [NSString stringWithFormat:@"iPhone %@)",[[formatString[i] componentsSeparatedByString:@"\"iPhone "][1] componentsSeparatedByString:@")\""][0]];
+                    }else{
+                        cerName = [NSString stringWithFormat:@"iPhone %@",[[formatString[i] componentsSeparatedByString:@"\"iPhone "][1] componentsSeparatedByString:@"\""][0]];
+                    }
+                    [certificateArray addObject:cerName];
+                }
+                if ([formatString[i] containsString:@"\"Apple Development:"] || [formatString[i] containsString:@"\"Apple Distribution:"]) {
+                    NSString * cerName;
+                    if ([formatString[i] containsString:@"("] && [formatString[i] containsString:@")"]) {
+                        cerName = [NSString stringWithFormat:@"Apple %@)",[[formatString[i] componentsSeparatedByString:@"\"Apple "][1] componentsSeparatedByString:@")\""][0]];
+                    }else{
+                        cerName = [NSString stringWithFormat:@"Apple %@",[[formatString[i] componentsSeparatedByString:@"\"Apple "][1] componentsSeparatedByString:@"\""][0]];
+                    }
                     [certificateArray addObject:cerName];
                 }
             }

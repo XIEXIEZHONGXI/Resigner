@@ -36,7 +36,6 @@ typedef NS_ENUM(NSUInteger, MobileprovisionType){
 @property (weak) IBOutlet NSTextField *mobileprovisionPathTextField;
 @property (weak) IBOutlet NSButton *mobileprovisionButton;
 
-@property (weak) IBOutlet NSButton *mobileprovisionSwitch;
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 
 @end
@@ -160,7 +159,6 @@ typedef NS_ENUM(NSUInteger, MobileprovisionType){
                 self.versionTextField.stringValue = version;
                 self.buildTextField.stringValue = build;
             });
-            self.mobileprovisionSwitch.state = NSOnState;
             [NEModel sharedInstance].oldIPABundleIdentifier = BundleIdentifier;
             
             [otoolCommand checkCryptWithAppPath:appPath completeHandler:^(BOOL crypted) {
@@ -186,7 +184,6 @@ typedef NS_ENUM(NSUInteger, MobileprovisionType){
         self.mobileprovisionPathTextField.stringValue = mobileprovisionPath;
         [NEModel sharedInstance].mobileprovisionPath = mobileprovisionPath;
         self->useMobileprovisionDictionary = [mobileprovisionManager decodeMobileprovision:mobileprovisionPath];
-        self.mobileprovisionSwitch.state = NSOffState;
         [self useIPAMobileprovisionAction:nil];
     }
 }
@@ -222,7 +219,6 @@ typedef NS_ENUM(NSUInteger, MobileprovisionType){
     [self.buildTextField setStringValue:@""];
     [self.mobileprovisionPathTextField setStringValue:@""];
     useMobileprovisionDictionary = nil;
-    self.mobileprovisionSwitch.state = NSOffState;
     [self.textView setString:@""];
 }
 
